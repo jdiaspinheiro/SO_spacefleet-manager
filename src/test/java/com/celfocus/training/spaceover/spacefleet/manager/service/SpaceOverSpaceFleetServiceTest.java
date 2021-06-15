@@ -1,9 +1,7 @@
 package com.celfocus.training.spaceover.spacefleet.manager.service;
 
 import com.celfocus.training.spaceover.spacefleet.manager.domain.model.SpaceFleet;
-import com.celfocus.training.spaceover.spacefleet.manager.domain.request.SpaceFleetRequest;
 import com.celfocus.training.spaceover.spacefleet.manager.repository.SpaceFleetRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 

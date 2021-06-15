@@ -14,7 +14,7 @@ public interface SpaceFleetController {
 
     ResponseEntity createSpaceFleet(SpaceFleetRequest request);
 
-    ResponseEntity<SpaceFleetResponse>  updateSpaceFleet(SpaceFleetRequest request, Long id);
+    ResponseEntity<SpaceFleetResponse> updateSpaceFleet(SpaceFleetRequest request, Long id);
 
     ResponseEntity deleteSpaceFleet(Long id);
 

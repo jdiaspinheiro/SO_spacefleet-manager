@@ -3,12 +3,13 @@ package com.celfocus.training.spaceover.spacefleet.manager.service;
 import com.celfocus.training.spaceover.spacefleet.manager.domain.model.SpaceFleet;
 import com.celfocus.training.spaceover.spacefleet.manager.repository.SpaceFleetRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SpaceOverSpaceFleetService implements SpaceFleetService {
@@ -20,8 +21,7 @@ public class SpaceOverSpaceFleetService implements SpaceFleetService {
     }
 
     public SpaceFleet findBydId(Long id) {
-        Optional<SpaceFleet> spaceFleet = spaceFleetRepository.findById(id);
-        return spaceFleet.orElseThrow(EntityNotFoundException::new);
+        return spaceFleetRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Spacefleet with ID:" + id + " not found!"));
     }
 
     public SpaceFleet save(SpaceFleet entity) {
@@ -29,10 +29,12 @@ public class SpaceOverSpaceFleetService implements SpaceFleetService {
     }
 
     public SpaceFleet update(SpaceFleet entity) {
+        log.trace("Updating spacefleet with ID: " + entity.getId());
         return save(entity);
     }
 
     public void deleteById(Long id) {
         spaceFleetRepository.deleteById(id);
+        log.trace("Deleted spacefleet with ID: " + id);
     }
 }

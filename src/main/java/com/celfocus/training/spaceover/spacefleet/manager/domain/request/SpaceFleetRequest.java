@@ -1,11 +1,11 @@
 package com.celfocus.training.spaceover.spacefleet.manager.domain.request;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 
@@ -14,6 +14,9 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Builder
 public class SpaceFleetRequest {
+
+    @Id
+    private Long id;
 
     @NotEmpty
     private String name;

@@ -1,4 +1,4 @@
-package com.celfocus.training.spaceover.spacefleet.manager.domain;
+package com.celfocus.training.spaceover.spacefleet.manager.domain.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;

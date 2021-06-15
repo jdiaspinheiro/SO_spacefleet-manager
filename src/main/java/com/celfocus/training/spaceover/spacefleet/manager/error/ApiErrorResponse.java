@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ApiException {
+public class ApiErrorResponse {
     private String code;
     private String message;
     private String reason;

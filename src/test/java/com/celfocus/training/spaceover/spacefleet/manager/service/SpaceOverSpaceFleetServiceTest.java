@@ -9,10 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class SpaceOverSpaceFleetServiceTest {
@@ -28,14 +32,11 @@ class SpaceOverSpaceFleetServiceTest {
             "THEN I expect the found List of spacefleets to be equal to the list of spacefleets that should be found")
     void findAll() {
         // arrange
-        List<SpaceFleet> spaceFleetsToFind = new ArrayList<SpaceFleet>() {
-            {
-                add(SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build());
-                add(SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build());
-                add(SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build());
-                add(SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build());
-            }
-        };
+        List<SpaceFleet> spaceFleetsToFind = Arrays.asList(
+                SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build(),
+                SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build(),
+                SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build(),
+                SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build());
 
         when(spaceFleetRepository.findAll()).thenReturn(spaceFleetsToFind);
 
@@ -48,7 +49,7 @@ class SpaceOverSpaceFleetServiceTest {
 
     @Test
     @DisplayName("Given X When I DO Y, I expect Z")
-    void findBydId() {
+    void findBydIdNormalBehaviour() {
         // arrange
         SpaceFleet spaceFleetToFind = SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build();
 
@@ -59,6 +60,18 @@ class SpaceOverSpaceFleetServiceTest {
 
         // assert
         assertEquals(spaceFleetFoundByID, spaceFleetToFind);
+    }
+
+    @Test
+    @DisplayName("Given X When I DO Y, I expect Z")
+    void findBydIdReturningEmptyOptional() {
+        // arrange
+        SpaceFleet spaceFleetToFind = SpaceFleet.builder().id(1L).name("name").sector("sector").status("status").build();
+
+        when(spaceFleetRepository.findById(1L)).thenReturn(Optional.empty());
+
+        // act & assert
+        assertThrows(EntityNotFoundException.class, () -> underTest.findBydId(1L), "Spacefleet with ID:1 not found!");
     }
 
     @Test
@@ -74,6 +87,7 @@ class SpaceOverSpaceFleetServiceTest {
         SpaceFleet spaceFleetSaved = underTest.save(spaceFleetBeforePersistence);
 
         // assert
+        assertNotNull(spaceFleetSaved);
         assertEquals(spaceFleetAfterPersistence, spaceFleetSaved);
     }
 

@@ -4,6 +4,9 @@ import com.celfocus.training.spaceover.spacefleet.manager.domain.model.SpaceFlee
 import com.celfocus.training.spaceover.spacefleet.manager.repository.SpaceFleetRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -36,5 +39,10 @@ public class SpaceOverSpaceFleetService implements SpaceFleetService {
     public void deleteById(Long id) {
         spaceFleetRepository.deleteById(id);
         log.trace("Deleted spacefleet with ID: " + id);
+    }
+
+    public Page<SpaceFleet> findPaginated(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        return this.spaceFleetRepository.findAll(pageable);
     }
 }

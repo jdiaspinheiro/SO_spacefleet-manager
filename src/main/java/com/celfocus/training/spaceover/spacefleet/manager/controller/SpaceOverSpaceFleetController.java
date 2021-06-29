@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.MDC;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,11 +45,27 @@ public class SpaceOverSpaceFleetController implements SpaceFleetController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/page/{pageNumber}")
+    public ResponseEntity<Page<SpaceFleetResponse>> getSpaceFleetsPage(@PathVariable int pageNumber) {
+        int pageSize = 5; //can be implemented on URI
+        generateMdcUuid();
+        log.trace("Request to GET ALL Spacefleets");
+        Page<SpaceFleet> page = spaceFleetService.findPaginated(pageNumber, pageSize);
+        List<SpaceFleet> spaceFleets = page.getContent();
+        Page<SpaceFleetResponse> response = new PageImpl<>(spaceFleets.stream()
+                .map(f -> modelMapper.map(f, SpaceFleetResponse.class))
+                .collect(Collectors.toList()));
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SpaceFleetResponse> getSpaceFleet(@PathVariable Long id) {
         generateMdcUuid();
         log.trace("Request to GET Spacefleet with ID: " + id);
-        return ResponseEntity.ok(modelMapper.map(spaceFleetService.findBydId(id), SpaceFleetResponse.class));
+        SpaceFleet bydId = spaceFleetService.findBydId(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("x-trace-id", MDC.get("trace-id"));
+        return new ResponseEntity<>(modelMapper.map(bydId, SpaceFleetResponse.class), headers, HttpStatus.OK);
     }
 
     @PostMapping

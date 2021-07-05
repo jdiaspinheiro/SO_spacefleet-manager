@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpaceFleetRepository extends MongoRepository<SpaceFleet, Long> {
+public interface SpaceFleetRepository extends MongoRepository<SpaceFleet, String> {
 
     SpaceFleet findByName(String name);
 }

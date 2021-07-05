@@ -59,7 +59,7 @@ public class SpaceOverSpaceFleetController implements SpaceFleetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpaceFleetResponse> getSpaceFleet(@PathVariable Long id) {
+    public ResponseEntity<SpaceFleetResponse> getSpaceFleet(@PathVariable String id) {
         generateMdcUuid();
         log.trace("Request to GET Spacefleet with ID: " + id);
         SpaceFleet bydId = spaceFleetService.findBydId(id);
@@ -77,7 +77,7 @@ public class SpaceOverSpaceFleetController implements SpaceFleetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SpaceFleetResponse> updateSpaceFleet(@RequestBody @Valid SpaceFleetRequest request, @PathVariable Long id) {
+    public ResponseEntity<SpaceFleetResponse> updateSpaceFleet(@RequestBody @Valid SpaceFleetRequest request, @PathVariable String id) {
         generateMdcUuid();
         log.trace("Request to PUT (update) Spacefleet with ID: " + id);
         SpaceFleet spaceFleet = modelMapper.map(request, SpaceFleet.class);
@@ -87,7 +87,7 @@ public class SpaceOverSpaceFleetController implements SpaceFleetController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<SpaceFleet> deleteSpaceFleet(@PathVariable Long id) {
+    public ResponseEntity<SpaceFleet> deleteSpaceFleet(@PathVariable String id) {
         generateMdcUuid();
         log.trace("Request to DELETE Spacefleet with ID: " + id);
         spaceFleetService.deleteById(id);

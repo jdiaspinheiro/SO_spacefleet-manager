@@ -18,7 +18,7 @@ import javax.validation.constraints.NotEmpty;
 public class SpaceFleetRequest {
 
     @Id
-    private Long id;
+    private String id;
 
     @NotEmpty
     private String name;

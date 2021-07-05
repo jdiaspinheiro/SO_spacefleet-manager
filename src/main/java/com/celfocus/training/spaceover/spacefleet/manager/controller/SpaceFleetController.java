@@ -13,12 +13,12 @@ public interface SpaceFleetController {
 
     ResponseEntity<Page<SpaceFleetResponse>> getSpaceFleetsPage(int pageNumber);
 
-    ResponseEntity<SpaceFleetResponse> getSpaceFleet(Long id);
+    ResponseEntity<SpaceFleetResponse> getSpaceFleet(String id);
 
     ResponseEntity createSpaceFleet(SpaceFleetRequest request);
 
-    ResponseEntity<SpaceFleetResponse> updateSpaceFleet(SpaceFleetRequest request, Long id);
+    ResponseEntity<SpaceFleetResponse> updateSpaceFleet(SpaceFleetRequest request, String id);
 
-    ResponseEntity deleteSpaceFleet(Long id);
+    ResponseEntity deleteSpaceFleet(String id);
 
 }

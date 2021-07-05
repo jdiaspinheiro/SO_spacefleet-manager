@@ -6,11 +6,11 @@ public interface CrudService<T> {
 
     List<T> findAll();
 
-    T findBydId(Long id);
+    T findBydId(String id);
 
     T save(T entity);
 
     T update(T entity);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 }

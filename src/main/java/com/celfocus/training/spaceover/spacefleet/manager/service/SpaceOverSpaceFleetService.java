@@ -23,8 +23,9 @@ public class SpaceOverSpaceFleetService implements SpaceFleetService {
         return spaceFleetRepository.findAll();
     }
 
-    public SpaceFleet findBydId(Long id) {
-        return spaceFleetRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Spacefleet with ID:" + id + " not found!"));
+    public SpaceFleet findBydId(String id) {
+        return spaceFleetRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Spacefleet with ID:" + id + " not found!"));
     }
 
     public SpaceFleet save(SpaceFleet entity) {
@@ -36,7 +37,7 @@ public class SpaceOverSpaceFleetService implements SpaceFleetService {
         return save(entity);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         spaceFleetRepository.deleteById(id);
         log.trace("Deleted spacefleet with ID: " + id);
     }

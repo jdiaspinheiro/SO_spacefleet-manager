@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class SpaceFleetResponse {
 
-    private Long id;
+    private String id;
     private String name;
     private String sector;
     private String status;
